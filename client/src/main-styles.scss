@@ -1,0 +1,46 @@
+/* Global styling and changing of variable values */
+
+@import url('https://fonts.googleapis.com/css?family=Lato|Ubuntu&display=swap');
+
+$purple: #D50065;
+$pink: #EA3A8D;
+$light-purple: #EA69A6;
+$dark-purple: #8A0041;
+$white: #F8F8F8;
+
+// Update Bulma variables
+$title-family: 'Ubuntu', sans-serif;
+$family-sans-serif: 'Lato', sans-serif;
+$primary: $purple; 
+$link: $light-purple;
+
+// Update components
+$control-border-width: 2px;
+$input-border-color: transparent;
+$input-shadow: none;
+
+// Global styles (will be applied to the whole app)
+html{
+    background-image: linear-gradient(to bottom left, #868f96 0%, #596164 100%);
+}
+
+html, body{
+    height: 100%;
+}
+
+.centered-content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.modal-box{
+    min-height: 200px;
+    width: 100%;
+    max-width: 600px;
+    background: white;
+    border-radius: 8px;
+    padding: 35px;
+}
