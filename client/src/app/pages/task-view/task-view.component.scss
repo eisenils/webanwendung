@@ -10,8 +10,8 @@
 }
 
 .sidebar{
-    // display: flex;
-    // flex-direction: column;
+    display: flex;
+    flex-direction: column;
     width: 250px;
     padding: 42px;
     border-top-left-radius: 8px;
@@ -26,12 +26,6 @@
     padding: 42px;
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px;
-}
-
-.title{
-    font-family: 'Ubuntu';
-    font-size: 28px;
-    letter-spacing: 1px;
 }
 
 .list-menu{

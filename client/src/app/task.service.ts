@@ -12,4 +12,12 @@ export class TaskService {
     // Send a web request to send a list
     return this.webRequestService.post('lists', {title});
   }
+
+  getLists() {
+    return this.webRequestService.get('lists');
+  }
+
+  getTasks(listId: string){
+    return this.webRequestService.get(`lists/${listId}/tasks`);
+  }
 }
