@@ -9,6 +9,13 @@ const { List, Task } = require('./db/models');
 /* Load middleware - Parse HTTP request body */
 app.use(bodyParser.json());
 
+//CORS HEADERS - append CORS Headers to the responses
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*"); // Update to match the domain you will make the request from
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
+
 /**
  * LIST ROUTES
  */
