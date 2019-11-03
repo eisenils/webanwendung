@@ -1,6 +1,8 @@
+import { List } from './../../models/list.model';
 import { TaskService } from './../../task.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
+import { Task } from 'src/app/models/task.model';
 
 @Component({
   selector: 'app-task-view',
@@ -10,21 +12,29 @@ import { ActivatedRoute, Params } from '@angular/router';
 export class TaskViewComponent implements OnInit {
 
   // Will be changed later with models
-  lists: any[];
-  tasks: any[];
+  lists: List[];
+  tasks: Task[];
 
   constructor(private taskService: TaskService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
-      this.taskService.getTasks(params.listId).subscribe((tasks: any[]) => {
+      this.taskService.getTasks(params.listId).subscribe((tasks: Task[]) => {
         this.tasks = tasks;
       });
     }
     );
 
-    this.taskService.getLists().subscribe((lists: any[]) => {
+    this.taskService.getLists().subscribe((lists: List[]) => {
       this.lists = lists;
+    });
+  }
+
+  onTaskClick(task: Task) {
+    // Set task to competed (line-through)
+    this.taskService.complete(task).subscribe(() => {
+      // !task.completed allows to 'uncomplete' tasks
+      task.completed = !task.completed;
     });
   }
 
