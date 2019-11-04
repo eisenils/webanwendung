@@ -133,7 +133,7 @@ UserSchema.statics.findByCredentials = function (email, password) {
 }
 
 UserSchema.statics.hasRefreshTokenExpired = (expiresAt) => {
-    let secondsSinceEpoch = Date.now/ 1000;
+    let secondsSinceEpoch = Date.now()/ 1000;
     if(expiresAt > secondsSinceEpoch) {
         // Hasn't expired
         return false;
