@@ -17,17 +17,24 @@
 
         <!-- Tasks -->
         <div class="task-list-container has-background-light">
-            <h1 class="title">
-                Aufgabe
-            </h1>
-            <!-- Task Elements -->
-            <div class="task" *ngFor="let task of tasks" (click)="onTaskClick(task)" [ngClass]="{'complete': task.completed}">
-                <p>{{ task.title }}</p>
-            </div>
+            <div *ngIf="tasks">
+                <h1 class="title">
+                    Aufgabe
+                </h1>
 
-            <button class="button is-primary has-text-white add-button" routerLink="./new-task" >
-                + Neue Aufgabe
-            </button>
+                <!-- Task Elements -->
+                <div class="task" *ngFor="let task of tasks" (click)="onTaskClick(task)" [ngClass]="{'complete': task.completed}">
+                    <p>{{ task.title }}</p>
+                </div>
+                <h3 class="empty-state-text" *ngIf="tasks.length === 0">Kein Aufgaben in dieser Liste</h3>
+    
+                <button class="button is-primary has-text-white add-button" routerLink="./new-task" >
+                    + Neue Aufgabe
+                </button>
+            </div>
+            <div *ngIf="!tasks">
+                <h3 class="empty-state-text">Um Aufgaben anzuzeigen, bitte eine Liste wählen.</h3>
+            </div>
         </div>
 
     </div>
