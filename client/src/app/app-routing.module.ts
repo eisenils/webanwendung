@@ -1,3 +1,4 @@
+import { LoginPageComponent } from './pages/login-page/login-page.component';
 // Handels the routing of the app
 
 import { TaskViewComponent } from './pages/task-view/task-view.component';
@@ -12,7 +13,8 @@ const routes: Routes = [
   { path: 'lists', component: TaskViewComponent},
   { path: 'new-list', component: NewListComponent},
   { path: 'lists/:listId/new-task', component: NewTaskComponent},
-  { path: 'lists/:listId', component: TaskViewComponent}
+  { path: 'lists/:listId', component: TaskViewComponent},
+  { path: 'login', component: LoginPageComponent},
 ];
 
 @NgModule({
