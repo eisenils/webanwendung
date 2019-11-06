@@ -106,6 +106,10 @@ UserSchema.pre('save', function (next) {
 
 /* Model methods */
 
+UserSchema.statics.getJWTSecret = () =>{
+    return jwtSecret;
+}
+
 // Finds a user by id and token
 UserSchema.statics.findByIdAndToken = function(_id, token) {
     const User = this;

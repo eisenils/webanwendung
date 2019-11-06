@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const {mongoose} = require('./db/mongoose');
+const jwt = require('jsonwebtoken');
 
 /* Load in the mongoose models*/
 const { List, Task, User } = require('./db/models');
@@ -17,6 +18,23 @@ app.use(function(req, res, next) {
     res.header("Access-Control-Expose-Headers", "x-access-token, x-refresh-token");
     next();
   });
+
+// Check if request has a valid JWT access token  
+let authenticate = (req, res, next) => {
+    let token = req.header('x-access-token');
+
+    // Verify the token 
+    jwt.verify(token, User.getJWTSecret(), (err, decoded) => {
+        if(err) {
+            // Error occured - jwt is invalid
+            res.status(401).send(err);
+        } else {
+            // jwt is valid
+            req.user_id = decoded._id;
+            next();
+        }
+    });
+}
 
 // Verify Refresh Token Middleware - will be verifying the session
 let verifySession = (req, res, next) => {
@@ -71,9 +89,11 @@ let verifySession = (req, res, next) => {
  */
 
 /* GET /lists - Get all lists */
-app.get('/lists', (req,res)=> {
-    // Return an array of all the lists 
-    List.find({}).then((lists) => {
+app.get('/lists', authenticate, (req,res)=> {
+    // Return an array of all the lists that belong to the authenticated user
+    List.find({
+        _userId: req.user_id
+    }).then((lists) => {
         res.send(lists);
     });
 });
