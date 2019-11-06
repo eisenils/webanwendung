@@ -99,11 +99,12 @@ app.get('/lists', authenticate, (req,res)=> {
 });
 
 /* POST /lists - Creat a list */
-app.post('/lists', (req,res)=> {
+app.post('/lists', authenticate, (req,res)=> {
     // Create new lists and retur new list document back to user 
     let title = req.body.title;
     let newList = new List({
-        title
+        title,
+        _userId: req.user_id
     });
     newList.save().then((listDoc) => {
         // Full list document will be returned
@@ -112,10 +113,12 @@ app.post('/lists', (req,res)=> {
 });
 
 /* PATCH /lists/:id - Update specified list */
-app.patch('/lists/:id', (req,res)=> {
+app.patch('/lists/:id', authenticate, (req,res)=> {
     // Update the list with the new values
     List.findOneAndUpdate({ 
-        _id: req.params.id }, {
+        _id: req.params.id, 
+        _userId: req.user_id
+    }, {
         $set: req.body
     }).then(() => {
         res.sendStatus(200);
@@ -123,12 +126,16 @@ app.patch('/lists/:id', (req,res)=> {
 });
 
 /* DELETE /lists/:id - Delete a list */
-app.delete('/lists/:id', (req,res)=> {
+app.delete('/lists/:id', authenticate, (req,res)=> {
     // Delete the specified lists
     List.findOneAndRemove({
-        _id: req.params.id
+        _id: req.params.id,
+        _userId: req.user_id
     }).then((removedListDoc) => {
         res.send(removedListDoc);
+
+        // Delete all tasks in the deleted list
+        deleteTasksFromList(removedListDoc._id);
     });
 });
 
@@ -246,6 +253,15 @@ app.get('/users/me/access-token', verifySession, (req, res) => {
         res.status(400).send(e);
     });
 })
+
+/* Helper Methods */
+let deleteTasksFromList = (_listId) => {
+    Task.deleteMany({
+        _listId
+    }).then(() => {
+        console.log('Tasks were deleted');
+    })
+}
 
 app.listen(3000, () => {
     console.log("Server is listening on port 3000");
