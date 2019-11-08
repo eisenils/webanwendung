@@ -2,7 +2,6 @@ import { shareReplay, tap } from 'rxjs/operators';
 import { WebRequestService } from './web-request.service';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { from } from 'rxjs';
 import { HttpResponse, HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -22,6 +21,17 @@ export class AuthService {
        })
      );
   }
+
+  signup(email: string, password: string) {
+    return this.webService.signup(email, password).pipe(
+      shareReplay(),
+      tap((res: HttpResponse<any>) => {
+        // Auth Tokens are in the header of this response
+        this.setSession(res.body._id, res.headers.get('x-access-token'), res.headers.get('x-refresh-token'));
+        console.log('Signed up and logged in');
+      })
+    );
+ }
 
   logout() {
     this.removeSession();
