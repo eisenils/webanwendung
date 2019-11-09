@@ -18,9 +18,31 @@
         <!-- Tasks -->
         <div class="task-list-container has-background-light">
             <div *ngIf="tasks">
-                <h1 class="title">
-                    Aufgabe
-                </h1>
+                <div class="top-bar">
+                    <h1 class="title">
+                        Aufgabe
+                    </h1>
+                    <div class="dropdown is-hoverable is-right">
+                            <div class="dropdown-trigger">
+                              <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4">
+                                <span>Optionen</span>
+                                <span class="icon is-small">
+                                  <i class="fas fa-angle-down" aria-hidden="true"></i>
+                                </span>
+                              </button>
+                            </div>
+                            <div class="dropdown-menu" id="dropdown-menu4" role="menu">
+                                <div class="dropdown-content">
+                                    <a class="dropdown-item">
+                                        Bearbeiten
+                                    </a>
+                                    <a (click)="onDeleteListClick()" class="dropdown-item has-text-danger">
+                                        Löschen
+                                    </a>
+                                </div>
+                            </div>
+                          </div>
+                </div>
 
                 <!-- Task Elements -->
                 <div class="task" *ngFor="let task of tasks" (click)="onTaskClick(task)" [ngClass]="{'complete': task.completed}">
