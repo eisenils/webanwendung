@@ -121,7 +121,7 @@ app.patch('/lists/:id', authenticate, (req,res)=> {
     }, {
         $set: req.body
     }).then(() => {
-        res.sendStatus(200);
+        res.send({ 'message': 'Updated successfully'})
     });
 });
 
