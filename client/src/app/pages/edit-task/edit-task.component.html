@@ -1,0 +1,15 @@
+<div class="centered-content">
+        <div class="modal-box">
+            <h1 class="title">
+                Aufgabe umbenennen
+            </h1>
+            <input #taskTitleInput class="input has-background-light is-medium" type="text" placeholder="Name der Aufgabe...">
+            <div class="buttons is-right" style="margin-top: 20px;">
+                <button class="button" routerLink="/">Abbrechen</button>
+                <button class="button is-primary has-text-white" (click)="updateTask(taskTitleInput.value)">
+                    Umbenennen
+                </button>
+            </div>
+        </div>
+    </div>
+    

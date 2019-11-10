@@ -41,4 +41,12 @@ export class TaskService {
       completed: !task.completed
     });
   }
+  updateTask(listId: string, taskId: string, title: string) {
+    // Send a web request to update a task
+    return this.webRequestService.patch(`lists/${listId}/tasks/${taskId}`, {title});
+  }
+
+  deleteTask(listId: string, taskId: string) {
+    return this.webRequestService.delete(`lists/${listId}/tasks/${taskId}`);
+  }
 }

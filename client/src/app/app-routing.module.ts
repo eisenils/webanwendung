@@ -1,3 +1,4 @@
+import { EditTaskComponent } from './pages/edit-task/edit-task.component';
 import { EditListComponent } from './pages/edit-list/edit-list.component';
 import { SignupPageComponent } from './pages/signup-page/signup-page.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'lists', component: TaskViewComponent},
   { path: 'edit-list/:listId', component: EditListComponent},
   { path: 'new-list', component: NewListComponent},
+  { path: 'lists/:listId/edit-task/:taskId', component: EditTaskComponent},
   { path: 'lists/:listId/new-task', component: NewTaskComponent},
   { path: 'lists/:listId', component: TaskViewComponent},
   { path: 'login', component: LoginPageComponent},
