@@ -1,3 +1,4 @@
+import { AuthService } from './../../auth.service';
 import { List } from './../../models/list.model';
 import { TaskService } from './../../task.service';
 import { Component, OnInit } from '@angular/core';
@@ -17,7 +18,7 @@ export class TaskViewComponent implements OnInit {
 
   selectedListId: string;
 
-  constructor(private taskService: TaskService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private taskService: TaskService, private route: ActivatedRoute, private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
@@ -56,6 +57,11 @@ export class TaskViewComponent implements OnInit {
       // this.router.navigate(['/lists']);
       this.tasks = this.tasks.filter(val => val._id !== id);
     });
+  }
+
+  onLogoutButtonClicked(email: string, password: string) {
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 
 }
