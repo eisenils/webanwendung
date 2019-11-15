@@ -301,6 +301,26 @@ app.get('/users/me/access-token', verifySession, (req, res) => {
     });
 })
 
+/* DELETE /users/session - Logout (Delete session from database) */
+app.delete('/users/session', verifySession, (req, res) => {
+    let userId = req.userId;
+    // Token which needs to be invalidated
+    let refreshToken = req.refreshToken; 
+
+    User.findOneAndUpdate({
+        _id: userId
+    }, {
+        $pull: {
+            sessions: {
+                token: refreshToken
+            }
+        }
+    }).then(() => {
+        console.log("Removed session");
+        res.send();
+    })
+})
+
 /* Helper Methods */
 let deleteTasksFromList = (_listId) => {
     Task.deleteMany({
